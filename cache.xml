@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 
-<core name="cache" version="0.1.0">
-  <core name="file" required_version="0.1.0"/>
-  <core name="logger" required_version="0.1.0"/>
+<core name="cache" branch="master">
+  <core name="file" required_branch="master"/>
+  <core name="logger" required_branch="master"/>
 
   <function name="open"/>
   <function name="close"/>
