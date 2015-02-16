@@ -1,0 +1,48 @@
+.template 0
+
+function global.cache__open(fn, path, pdir, cdir)
+  my.cdir ?= global.cm_cache_path
+  my.pdir ?= global.cm_build_path
+  my.path ?= ""
+
+  if my.path <> ""
+    directory.create("$(my.pdir:)/$(my.path:)")
+    directory.create("$(my.cdir:)/$(my.path:)")
+    my.fn = my.path + '/' + my.fn
+  endif
+
+  # log('create and cache file "$(my.fn:)"', 'cache')
+  output "$(my.cdir:)/$(my.fn:)"
+
+  return my.fn
+endfunction
+
+function global.cache_open(fn, path, pdir, cdir)
+  return cache__open(my.fn, my.path, my.pdir, my.cdir)
+endfunction
+
+function global.cache__close(fn, pdir, cdir)
+  my.cdir ?= global.cm_cache_path
+  my.pdir ?= global.cm_build_path
+
+  close
+
+  my.src = my.cdir + '/' + my.fn
+  my.dst = my.pdir + '/' + my.fn
+
+  if !samefiles(my.src, my.dst)
+    if global.debug
+      log('create file "$(my.fn:)"', 'cache')
+    endif
+    file.delete(my.dst)
+    file.copy(my.src, my.dst)
+  else
+    # log('file "$(my.fn:)" not changed', 'cache')
+  endif
+endfunction
+
+function global.cache_close(fn, pdir, cdir)
+  return cache__close(my.fn, my.pdir, my.cdir)
+endfunction
+
+.endtemplate

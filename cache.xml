@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<core name="cache" version="0.1.0">
+  <core name="file" required_version="0.1.0"/>
+  <core name="logger" required_version="0.1.0"/>
+
+  <function name="open"/>
+  <function name="close"/>
+</core>
