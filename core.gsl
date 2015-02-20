@@ -1,5 +1,10 @@
 .template 0
 
+function global.cache__init
+  new project.cache
+  endnew
+endfunction
+
 function global.cache__open(fn, path, pdir, cdir)
   my.cdir ?= global.cm_cache_path
   my.pdir ?= global.cm_build_path
@@ -13,6 +18,15 @@ function global.cache__open(fn, path, pdir, cdir)
 
   # log('create and cache file "$(my.fn:)"', 'cache')
   output "$(my.cdir:)/$(my.fn:)"
+
+  for project.cache as c
+    if defined(c->file(path = my.fn))
+      error('File conflict with the filename "$(my.fn:)".')
+    endif
+    new c.file as f
+      define f.path = my.fn
+    endnew
+  endfor
 
   return my.fn
 endfunction
@@ -31,9 +45,7 @@ function global.cache__close(fn, pdir, cdir)
   my.dst = my.pdir + '/' + my.fn
 
   if !samefiles(my.src, my.dst)
-    if global.debug
-      log('create file "$(my.fn:)"', 'cache')
-    endif
+    debug('create file "$(my.fn:)"', 'cache')
     file.delete(my.dst)
     file.copy(my.src, my.dst)
   else
