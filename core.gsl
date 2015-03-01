@@ -1,8 +1,8 @@
 .template 0
 
 function global.cache__open(fn, path, pdir, cdir)
-  my.cdir ?= global.cm_cache_path
-  my.pdir ?= global.cm_build_path
+  my.cdir ?= global.cache_path
+  my.pdir ?= global.build_path
   my.path ?= ""
 
   if my.path <> ""
@@ -29,8 +29,8 @@ function global.cache_open(fn, path, pdir, cdir)
 endfunction
 
 function global.cache__close(fn, pdir, cdir)
-  my.cdir ?= global.cm_cache_path
-  my.pdir ?= global.cm_build_path
+  my.cdir ?= global.cache_path
+  my.pdir ?= global.build_path
 
   close
 
