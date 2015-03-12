@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<core name="cache" branch="master">
+<core name="cache" branch="master" description="4i core library handling a cache system for generated file">
   <core name="file" required_branch="master"/>
   <core name="logger" required_branch="master"/>
 
